@@ -1,13 +1,13 @@
-name: CI/CD Pipeline
+name: Build and Deploy
 
 on:
   push:
-    branches: [ mainn ]
+    branches: [ main ]
   pull_request:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: custom-runner
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -17,17 +17,20 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+    # - name: Install dependencies
+    #   run: pip install -r requirements.txt
 
     - name: Lint
-      run: flake8 app.py
+      run: flake8 ./sample-app/main.py
 
     - name: Test
-      run: pytest  # or custom test command
+      run: pytest ./sample-app/main.py # or custom test command
 
     - name: Build Docker image
-      run: docker build -t devops-app .
+      run: docker build -t radicald/flaskapp:${{ github.sha }} ./sample-app
+
+    - name: Push image to Dockerhub
+      run: docker push radicald/flaskapp:${{ github.sha }}
 
     - name: Deploy
-      run: echo "Mock deploy step (e.g., Terraform apply or SCP to VM)"
+      run: docker run -d --name flaskapp radicald/flaskapp:${{ github.sha }} 
