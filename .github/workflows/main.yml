@@ -28,7 +28,7 @@ jobs:
     - name: Test
       run: |
            pip install pytest
-           pytest sample_app/test.py # or custom test command
+           pytest test.py # or custom test command
 
     - name: Build Docker image
       run: docker build -t radicald/flaskapp:${{ github.sha }} sample_app/
