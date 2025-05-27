@@ -42,8 +42,8 @@ jobs:
     - name: Login to Docker
       run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" docker.io --password-stdin
     
-    - name: Push image to Dockerhub
-      run: sudo docker push radicald/flaskapp:${{ github.sha }}
+    # - name: Push image to Dockerhub
+    #   run: sudo docker push radicald/flaskapp:${{ github.sha }}
 
     - name: Deploy
-      run: docker run -d --name flaskapp radicald/flaskapp:${{ github.sha }} 
+      run: sudo docker run -d --name flaskapp radicald/flaskapp:${{ github.sha }} 
