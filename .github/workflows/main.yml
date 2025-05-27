@@ -33,6 +33,12 @@ jobs:
     - name: Build Docker image
       run: sudo docker build -t radicald/flaskapp:${{ github.sha }} sample_app/
 
+    - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
     - name: Push image to Dockerhub
       run: sudo docker push radicald/flaskapp:${{ github.sha }}
 
