@@ -17,14 +17,18 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install flake8 and pytest
-      run: pip install -r sample-app/requirements.txt
+    # - name: Install flake8 and pytest
+    #   run: pip install -r sample-app/requirements.txt
 
     - name: Lint
-      run: flake8 sample-app/
+      run: |
+          pip install flake8
+          flake8 sample-app/
 
     - name: Test
-      run: pytest sample-app/ # or custom test command
+      run: |
+           pip install pytest
+           pytest sample-app/ # or custom test command
 
     - name: Build Docker image
       run: docker build -t radicald/flaskapp:${{ github.sha }} sample-app/
