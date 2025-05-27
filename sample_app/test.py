@@ -1,4 +1,6 @@
 from sample_app.main import app
+
+
 def test_health():
     with app.test_client() as client:
         response = client.get('/health')
