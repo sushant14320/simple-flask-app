@@ -17,8 +17,8 @@ jobs:
       with:
         python-version: '3.10'
 
-    # - name: Install dependencies
-    #   run: pip install -r requirements.txt
+    - name: Install flake8 and pytest
+      run: pip install -r requirements.txt
 
     - name: Lint
       run: flake8 ./sample-app/main.py
