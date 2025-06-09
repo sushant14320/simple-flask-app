@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: custom-runner
+    runs-on: azurerunner
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
