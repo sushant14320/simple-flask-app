@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    azure.workload.identity/client-id: f171c629-123d-421d-93d9-88ae1858f7a7
+  name: testacc
+  namespace: default
