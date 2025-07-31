@@ -1,0 +1,24 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: python-app
+  labels:
+    azure.workload.identity/use: "true"
+spec:
+  serviceAccountName: "testacc"
+  containers:
+    - name: python-app
+      image: acrvault.azurecr.io/pythona:1
+      volumeMounts:
+      - name: secrets-store01
+        mountPath: "/mnt/secrets-store"
+        readOnly: true
+  volumes:
+    - name: secrets-store01
+      csi:
+        driver: secrets-store.csi.k8s.io
+        readOnly: true
+        volumeAttributes:
+          secretProviderClass: "azure-kvname-wi"
+  imagePullSecrets:
+    - name: vaultsecret

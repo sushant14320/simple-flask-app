@@ -1,12 +1,12 @@
 apiVersion: secrets-store.csi.x-k8s.io/v1
 kind: SecretProviderClass
 metadata:
-  name: azure-kvname # needs to be unique per namespace
+  name: azure-kvname-wi # needs to be unique per namespace
 spec:
   provider: azure
   parameters:
     usePodIdentity: "false"
-    clientID: "f171c629-123d-421d-93d9-88ae1858f7a7" # Setting this to use workload identity
+    clientID: clientid # Setting this to use workload identity
     keyvaultName: keyvault001-eastus-2025      # Set to the name of your key vault
     cloudName: ""                         # [OPTIONAL for Azure] if not provided, the Azure environment defaults to AzurePublicCloud
     objects:  |
@@ -16,4 +16,4 @@ spec:
           objectType: secret              # object types: secret, key, or cert
           objectVersion: ""               # [OPTIONAL] object versions, default to latest if empty
 
-    tenantId: "4f113f72-597d-40c0-bfe3-ce95c80f3b7b"        # The tenant ID of the key vault
+    tenantId: tenantid       # The tenant ID of the key vault
